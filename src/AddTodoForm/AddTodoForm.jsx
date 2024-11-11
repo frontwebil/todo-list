@@ -10,7 +10,7 @@ export function AddTodoForm({onSubmit}) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (newItem === "") return;
+    if (newItem.title === "") return;
 
     onSubmit({...newItem , completed: false});
     setNewItem({

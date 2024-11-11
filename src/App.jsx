@@ -4,6 +4,8 @@ import { AddTodoForm } from "./AddTodoForm/AddTodoForm.jsx";
 import { TodoListItems } from "./TodoListItems/TodoListItems.jsx";
 
 export function App() {
+
+
   const [todos, setTodos] = useState(() => {
     const localValue = localStorage.getItem("ITEMS");
     if (localValue == null) {
@@ -23,29 +25,23 @@ export function App() {
     localStorage.setItem("ITEMS", JSON.stringify(todos));
   }, [todos]);
 
-  const [isAscending, setIsAscending] = useState(() => {
-    const Ascending = localStorage.getItem("ISASCENDING");
-    if (Ascending == null || Ascending == "undefinded") {
-      return false;
-    }
-    if(Ascending == true){
-      sortByPriority()
-    }
-    return JSON.parse(Ascending);
-  });
+  const [sortedArray , setSortedArray] = useState(todos)
 
-  useEffect(() => {
-    localStorage.setItem("ISASCENDING", JSON.stringify(isAscending));
-  }, [isAscending]);
 
   function addTodo(newItem) {
     const newItemWithId = { ...newItem, id: crypto.randomUUID() };
+    setSortedArray((oldTodos)=>{
+      return [...oldTodos , newItemWithId]
+    })
     setTodos((oldTodos) => {
       return [...oldTodos, newItemWithId];
     });
   }
 
   function deleteTodoIem(id) {
+    setSortedArray((el)=>{
+      return el.filter((todo) => todo.id !== id);
+    })
     setTodos((el) => {
       return el.filter((todo) => todo.id !== id);
     });
@@ -63,27 +59,32 @@ export function App() {
     });
   }
 
-  function sortByPriority() {
-    setIsAscending((prev) => !prev);
-
-    setTodos((oldTodos) => {
-      return [...oldTodos].sort((a, b) => {
-        if (isAscending) {
-          return a.priority - b.priority;
-        } else {
-          return b.priority - a.priority;
-        }
-      });
-    });
+  function SortPriorityDescending() {
+    setSortedArray((oldTodos)=>{
+      return [...oldTodos].sort((a,b)=>{
+        return b.priority - a.priority;
+      })
+    })
+  }
+  function SortPriorityAscending() {
+    setSortedArray((oldTodos)=>{
+      return [...oldTodos].sort((a,b)=>{
+        return a.priority - b.priority;
+      })
+    })
+  }
+  function SetPriorityDefault(){
+    setSortedArray(todos);
   }
 
   return (
     <>
       <AddTodoForm onSubmit={addTodo} />
       <TodoListItems
-        sortByPriority={sortByPriority}
-        isAscending={isAscending}
-        todoItems={todos}
+        sortByPriorityDescending={SortPriorityDescending}
+        sortByPriorityAscending={SortPriorityAscending}
+        setDefault={SetPriorityDefault}
+        todoItems={sortedArray}
         deleteItem={deleteTodoIem}
         toggleTodo={toggleTodo}
       />
