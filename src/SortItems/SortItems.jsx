@@ -22,7 +22,7 @@ export function SortItems({sortByPriorityDescending , sortByPriorityAscending , 
     <div className="Sort-buttons">
       <button className={`sort-btn ${activeButton === 'descending' ? 'active' : ''}`}  onClick={handleSortDescending}>Sort by priority in descending</button>
       <button className={`sort-btn ${activeButton === 'ascending' ? 'active' : ''}`}  onClick={handleSortAscending}>Sort by priority in ascending</button>
-      <button className={`sort-btn ${activeButton === 'default' ? 'active' : ''}`}  onClick={handleSortAscending}>Default</button>
+      <button className={`sort-btn ${activeButton === 'default' ? 'active' : ''}`}  onClick={handleSortDefault}>Default</button>
     </div>
   )
 }
