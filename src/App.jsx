@@ -3,7 +3,7 @@ import "./index.css";
 import { AddTodoForm } from "./AddTodoForm/AddTodoForm.jsx";
 import { TodoListItems } from "./TodoListItems/TodoListItems.jsx";
 
-function App() {
+export function App() {
   const [todos, setTodos] = useState(() => {
     const localValue = localStorage.getItem("ITEMS");
     if (localValue == null) {
@@ -21,9 +21,22 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("ITEMS", JSON.stringify(todos));
-    
   }, [todos]);
 
+  const [isAscending, setIsAscending] = useState(() => {
+    const Ascending = localStorage.getItem("ISASCENDING");
+    if (Ascending == null || Ascending == "undefinded") {
+      return false;
+    }
+    if(Ascending == true){
+      sortByPriority()
+    }
+    return JSON.parse(Ascending);
+  });
+
+  useEffect(() => {
+    localStorage.setItem("ISASCENDING", JSON.stringify(isAscending));
+  }, [isAscending]);
 
   function addTodo(newItem) {
     const newItemWithId = { ...newItem, id: crypto.randomUUID() };
@@ -51,8 +64,16 @@ function App() {
   }
 
   function sortByPriority() {
+    setIsAscending((prev) => !prev);
+
     setTodos((oldTodos) => {
-      return [...oldTodos].sort((a, b) => b.priority - a.priority);
+      return [...oldTodos].sort((a, b) => {
+        if (isAscending) {
+          return a.priority - b.priority;
+        } else {
+          return b.priority - a.priority;
+        }
+      });
     });
   }
 
@@ -61,6 +82,7 @@ function App() {
       <AddTodoForm onSubmit={addTodo} />
       <TodoListItems
         sortByPriority={sortByPriority}
+        isAscending={isAscending}
         todoItems={todos}
         deleteItem={deleteTodoIem}
         toggleTodo={toggleTodo}
@@ -68,5 +90,3 @@ function App() {
     </>
   );
 }
-
-export default App;

@@ -1,5 +1,8 @@
 .Sort-buttons {
   margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .sort-btn {
   cursor: pointer;
@@ -7,7 +10,7 @@
   width: 100%;
   margin: 10px 0;
   display: block;
-  background-color: #2743f6;
+  background-color: gray;
   color: white;
   border-radius: 8px;
   border: none;
@@ -19,4 +22,8 @@
 
 .sort-btn:hover {
   transform: scale(1.05);
+}
+
+.active{
+  background-color: #2743f6;
 }
