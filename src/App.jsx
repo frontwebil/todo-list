@@ -48,6 +48,15 @@ export function App() {
   }
 
   function toggleTodo(id, completed) {
+    setSortedArray((oldTodos=>{
+      return oldTodos.map((el) => {
+        if (el.id === id) {
+          return { ...el, completed };
+        } else {
+          return el;
+        }
+      });
+    }))
     setTodos((oldTodos) => {
       return oldTodos.map((el) => {
         if (el.id === id) {
