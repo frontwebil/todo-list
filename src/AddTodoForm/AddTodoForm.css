@@ -1,0 +1,76 @@
+.addTodoForm {
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.enter-todo{
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.Row {
+  display: flex;
+  gap: 5px;
+}
+
+.input-text {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 5px 20px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #54595e;
+}
+
+.input-text:focus,
+.input-text:active {
+  border-color: #17a2b8;
+}
+
+.select {
+  min-width: 45px;
+  border: 1px solid #dee2e6;
+  appearance: none;
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+  color: #54595e;
+  border-radius: 10px;
+  height: 32px;
+}
+
+.addTodoForm-input {
+  display: flex;
+  flex-direction: column;
+}
+.btn {
+  cursor: pointer;
+  max-width: 100px;
+  width: 100%;
+  margin: 10px 0;
+  display: block;
+  background-color: #bcc5ff;
+  border-radius: 8px;
+  border: none;
+  padding: 10px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.5s ease;
+}
+
+.btn:hover{
+  transform: scale(1.05);
+} 
+
+/* .red {
+  background: red;
+}
+.green {
+  background: green;
+}
+.blue {
+  background: blue;
+}
+.pink {
+  background: pink;
+} */

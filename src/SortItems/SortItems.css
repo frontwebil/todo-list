@@ -1,0 +1,22 @@
+.Sort-buttons {
+  margin-top: 10px;
+}
+.sort-btn {
+  cursor: pointer;
+  max-width: 140px;
+  width: 100%;
+  margin: 10px 0;
+  display: block;
+  background-color: #2743f6;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  padding: 10px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.5s ease;
+}
+
+.sort-btn:hover {
+  transform: scale(1.05);
+}
