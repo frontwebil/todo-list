@@ -18,6 +18,7 @@
   font-weight: 500;
   font-size: 12px;
   transition: all 0.5s ease;
+  height: 53px;
 }
 
 .sort-btn:hover {
@@ -26,5 +27,4 @@
 
 .active{
   background-color: #2743f6;
-  height: 53px;
 }
