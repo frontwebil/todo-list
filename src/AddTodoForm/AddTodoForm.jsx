@@ -43,15 +43,14 @@ export function AddTodoForm({onSubmit}) {
             id="priority"
             className="select"
           >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
+            <option value="1">high</option>
+            <option value="2">medium</option>
+            <option value="3">low</option>
           </select>
         </div>
       </div>
 
-      <button className="btn">Add</button>
+      <button type="submit" className="btn">Add</button>
     </form>
   );
 }

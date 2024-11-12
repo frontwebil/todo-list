@@ -1,11 +1,13 @@
 .addTodoForm {
   max-width: 400px;
   margin: 20px auto;
+  color: #222;
 }
 
 .enter-todo{
   font-size: 24px;
   font-weight: 500;
+  
 }
 
 .Row {

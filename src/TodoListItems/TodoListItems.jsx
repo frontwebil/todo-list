@@ -2,11 +2,11 @@ import "./TodoListItems.css";
 import { TodoListItem } from "../TodoListItem/TodoListItem";
 import {SortItems} from '../SortItems/SortItems'
 
-export function TodoListItems({ todoItems, deleteItem , toggleTodo , sortByPriorityDescending , sortByPriorityAscending , setDefault }) {
+export function TodoListItems({ todoItems, deleteItem , toggleTodo , handleClickChange , sortButton }) {
   return (
     <>
       <h1>Todo List</h1>
-      <SortItems sortByPriorityDescending={sortByPriorityDescending} sortByPriorityAscending={sortByPriorityAscending} setDefault={setDefault}/>
+      <SortItems  handleClickChange={handleClickChange} sortButton={sortButton}/>
       <div className="todoItems-column">
         {todoItems.length === 0 && "No todos"}
         {todoItems.map((el) => {

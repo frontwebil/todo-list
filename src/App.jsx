@@ -23,10 +23,12 @@ export function App() {
 
   useEffect(() => {
     localStorage.setItem("ITEMS", JSON.stringify(todos));
+    
   }, [todos]);
 
   const [sortedArray , setSortedArray] = useState(todos)
 
+  const [sortButton, setsortButton] = useState("default");
 
   function addTodo(newItem) {
     const newItemWithId = { ...newItem, id: crypto.randomUUID() };
@@ -36,6 +38,9 @@ export function App() {
     setTodos((oldTodos) => {
       return [...oldTodos, newItemWithId];
     });
+
+    setsortButton("default");
+    setSortedArray(todos)
   }
 
   function deleteTodoIem(id) {
@@ -86,13 +91,25 @@ export function App() {
     setSortedArray(todos);
   }
 
+  function handleClickChange() {
+    if (sortButton === "ascending") {
+      setsortButton("descending");
+      SortPriorityDescending();
+    } else if (sortButton === "descending") {
+      setsortButton("default");
+      SetPriorityDefault();
+    } else if (sortButton === "default") {
+      setsortButton("ascending");
+      SortPriorityAscending();
+    }
+  }
+
   return (
     <>
       <AddTodoForm onSubmit={addTodo} />
       <TodoListItems
-        sortByPriorityDescending={SortPriorityDescending}
-        sortByPriorityAscending={SortPriorityAscending}
-        setDefault={SetPriorityDefault}
+        handleClickChange={handleClickChange}
+        sortButton={sortButton}
         todoItems={sortedArray}
         deleteItem={deleteTodoIem}
         toggleTodo={toggleTodo}
