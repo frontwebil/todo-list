@@ -102,6 +102,7 @@ export function App() {
     });
   }
   function SetPriorityDefault() {
+    setsearchItem('')
     setSortedArray(todos);
   }
 
