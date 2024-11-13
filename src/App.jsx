@@ -4,7 +4,15 @@ import { AddTodoForm } from "./AddTodoForm/AddTodoForm.jsx";
 import { TodoListItems } from "./TodoListItems/TodoListItems.jsx";
 
 export function App() {
-
+  const searchInTodos = (searchText, listOfTodos) => {
+    if (!searchText) {
+      setsortButton("default");
+      return listOfTodos;
+    }
+    return listOfTodos.filter(({ title }) =>
+      title.toLowerCase().includes(searchText.toLowerCase())
+    );
+  };
 
   const [todos, setTodos] = useState(() => {
     const localValue = localStorage.getItem("ITEMS");
@@ -23,37 +31,43 @@ export function App() {
 
   useEffect(() => {
     localStorage.setItem("ITEMS", JSON.stringify(todos));
-    
   }, [todos]);
 
-  const [sortedArray , setSortedArray] = useState(todos)
+  const [sortedArray, setSortedArray] = useState(todos);
 
   const [sortButton, setsortButton] = useState("default");
 
+  const [searchItem, setsearchItem] = useState("");
+
+  useEffect(() => {
+    const filteredTodos = searchInTodos(searchItem, todos); // Используем todos вместо sortedArray
+    setSortedArray(filteredTodos);
+  }, [searchItem, todos]);
+
   function addTodo(newItem) {
     const newItemWithId = { ...newItem, id: crypto.randomUUID() };
-    setSortedArray((oldTodos)=>{
-      return [...oldTodos , newItemWithId]
-    })
+    setSortedArray((oldTodos) => {
+      return [...oldTodos, newItemWithId];
+    });
     setTodos((oldTodos) => {
       return [...oldTodos, newItemWithId];
     });
 
     setsortButton("default");
-    setSortedArray(todos)
+    setSortedArray(todos);
   }
 
   function deleteTodoIem(id) {
-    setSortedArray((el)=>{
+    setSortedArray((el) => {
       return el.filter((todo) => todo.id !== id);
-    })
+    });
     setTodos((el) => {
       return el.filter((todo) => todo.id !== id);
     });
   }
 
   function toggleTodo(id, completed) {
-    setSortedArray((oldTodos=>{
+    setSortedArray((oldTodos) => {
       return oldTodos.map((el) => {
         if (el.id === id) {
           return { ...el, completed };
@@ -61,7 +75,7 @@ export function App() {
           return el;
         }
       });
-    }))
+    });
     setTodos((oldTodos) => {
       return oldTodos.map((el) => {
         if (el.id === id) {
@@ -74,20 +88,20 @@ export function App() {
   }
 
   function SortPriorityDescending() {
-    setSortedArray((oldTodos)=>{
-      return [...oldTodos].sort((a,b)=>{
+    setSortedArray((oldTodos) => {
+      return [...oldTodos].sort((a, b) => {
         return b.priority - a.priority;
-      })
-    })
+      });
+    });
   }
   function SortPriorityAscending() {
-    setSortedArray((oldTodos)=>{
-      return [...oldTodos].sort((a,b)=>{
+    setSortedArray((oldTodos) => {
+      return [...oldTodos].sort((a, b) => {
         return a.priority - b.priority;
-      })
-    })
+      });
+    });
   }
-  function SetPriorityDefault(){
+  function SetPriorityDefault() {
     setSortedArray(todos);
   }
 
@@ -108,6 +122,8 @@ export function App() {
     <>
       <AddTodoForm onSubmit={addTodo} />
       <TodoListItems
+        setSearchItem={setsearchItem}
+        searchItem={searchItem}
         handleClickChange={handleClickChange}
         sortButton={sortButton}
         todoItems={sortedArray}
